@@ -1,22 +1,18 @@
-/*
-From the HTML string, get an array of strings, which will contain the URL of the image
-Idea 1: Slice the string by certain identifiers
-Idea 2: Look for the .jpg in the string
-Extract the first 10 image URLs
-Loop over the first 10 jpg image URLs
-Access / navigate to the image URL
-Save the response string in a variable
-Make a file with the contents of the string
-Maybe: check if any problems arise from rewriting the files
-Preflight, commit, deploy, drone (everything in the cheatsheet)
-*/
-// search for library to download files
-// create folder with code
-
-// it takes the (HTML Markup as a) string and it allows me to shuffle stuff around and extracts things etc. (manipulating in a structured way)
+// takes the (HTML Markup as a) string and it allows me to shuffle stuff around and extracts things etc. (manipulating in a structured way)
 import cheerio from 'cheerio';
+// Create a folder called memes
+// library to download URL and store it in memes folder? - not sure if it does this
+import fs from 'fs';
 // going to a webiste, takes the HTML from that site, brings it back to me -> a string of HTML
 import fetch from 'node-fetch';
+
+async function download(memesURL, memesName) {
+  const response = await fetch(memesURL);
+  const buffer = await response.buffer();
+  fs.writeFile(`./memes/meme${memesName}.jpg`, buffer, () =>
+    console.log('finished downloading! Hoorrayyy!'),
+  );
+}
 
 // await cannot operate outside of a function -> that's why I made a function
 async function fetchURL() {
@@ -34,12 +30,24 @@ async function fetchURL() {
   // variable that takes everything containing 'img' from the § variable
   const images = $('img');
 
-  // images is an array, that's why I can select the  first object; in this is another object called 'attribs', and in that an object called 'src'
-  console.log(images[0].attribs.src);
-}
+  // create a loop that prints no 0-9; condition plus, where to stop, something changes in every loop to move forward
+  // let.....0 - declaring the variable
+  // stop condition <10
+  for (let picDownloads = 0; picDownloads < 10; picDownloads++) {
+    // images is an array, that's why I can select the first object; in this is another object called 'attribs', and in that an object called 'src'
+    const imageURL = images[picDownloads].attribs.src;
 
+    console.log(imageURL);
+    download(imageURL, picDownloads);
+  }
+}
 fetchURL();
-//console.log(images.logHtml());
-// $('img').each((i, el) => {
-// const imageLinks = §(el).attr('href');
+
+// Future task: create and ELSE IF statement to tell the code to not give me an error message
+// const memes = './memes';
+// fs.mkdir(memes, (err) => {
+//   if (err) {
+//     throw err;
+//   }
+//   console.log('Directory is created. Yay!');
 // });
