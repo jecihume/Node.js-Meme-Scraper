@@ -10,7 +10,7 @@ async function download(memesURL, memesName) {
   const response = await fetch(memesURL);
   const buffer = await response.buffer();
   fs.writeFile(`./memes/meme${memesName}.jpg`, buffer, () =>
-    console.log('finished downloading! Hoorrayyy!'),
+    console.log('Picture has loaded! Yaaayyy!!!'),
   );
 }
 
