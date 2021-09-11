@@ -44,10 +44,10 @@ async function fetchURL() {
 fetchURL();
 
 // Future task: create and ELSE IF statement to tell the code to not give me an error message
-// const memes = './memes';
-// fs.mkdir(memes, (err) => {
-//   if (err) {
-//     throw err;
-//   }
-//   console.log('Directory is created. Yay!');
-// });
+const memes = './memes';
+fs.mkdir(memes, (err) => {
+  if (err) {
+    throw err;
+  }
+  console.log('Directory is created. Yay!');
+});
