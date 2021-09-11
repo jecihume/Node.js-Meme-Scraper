@@ -2,6 +2,7 @@
 import cheerio from 'cheerio';
 // Create a folder called memes
 // library to download URL and store it in memes folder? - not sure if it does this
+// fs is an object to help me work with the file system
 import fs from 'fs';
 // going to a webiste, takes the HTML from that site, brings it back to me -> a string of HTML
 import fetch from 'node-fetch';
@@ -35,19 +36,47 @@ async function fetchURL() {
   // stop condition <10
   for (let picDownloads = 0; picDownloads < 10; picDownloads++) {
     // images is an array, that's why I can select the first object; in this is another object called 'attribs', and in that an object called 'src'
+    // picDownloads underneath is the index of the array called images
     const imageURL = images[picDownloads].attribs.src;
 
+    // when calling the download function, replace the second parameter (picDownloads) with the new constant imageNames!
     console.log(imageURL);
-    download(imageURL, picDownloads);
+    const imageNames = picDownloads + 1;
+    download(imageURL, imageNames);
   }
 }
 fetchURL();
 
 // Future task: create and ELSE IF statement to tell the code to not give me an error message
+// './memes' is a map, so that node knows where to put stuff
+// . will access a property of the object it belongs to (before the dot)
 const memes = './memes';
-fs.mkdir(memes, (err) => {
-  if (err) {
-    throw err;
-  }
-  console.log('Directory is created. Yay!');
-});
+
+// alternative 1
+if (fs.existsSync(memes)) {
+  console.log('Directory exists!');
+} else {
+  console.log('Directory not found.');
+  fs.mkdir(memes, (err) => {
+    // a condition always needs to be in parenthesis! like always! Here: does the error exist at all? err is the condition of if
+    if (err) {
+      throw err;
+    }
+
+    console.log('Directory is created. Yay!');
+  });
+}
+
+// alternative 2
+// fs.mkdir(memes, (err) => {
+//   // a condition always needs to be in parenthesis! like always! Here: does the error exist at all? err is the condition of if
+//   if (err) {
+//     // everything in the curlies will only happen if the if-statement turns out to be true!
+//     if (err.code !== 'EEXIST') {
+//       // these curlier aren't really necessary in this case, but as soon as there would be more code, it makes sense!
+//       // if statement with a complete conditional
+//       throw err;
+//     }
+//   }
+//   console.log('Directory is created. Yay!');
+// });
