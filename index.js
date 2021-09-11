@@ -31,7 +31,7 @@ async function fetchURL() {
   const images = $('img');
 
   // create a loop that prints no 0-9; condition plus, where to stop, something changes in every loop to move forward
-  // let.....0 - declaring the variable
+  // let..... 0 - declaring the variable
   // stop condition <10
   for (let picDownloads = 0; picDownloads < 10; picDownloads++) {
     // images is an array, that's why I can select the first object; in this is another object called 'attribs', and in that an object called 'src'
