@@ -1,9 +1,9 @@
-// takes the (HTML Markup as a) string and it allows me to shuffle stuff around and extracts things etc. (manipulating in a structured way)
-import cheerio from 'cheerio';
 // Create a folder called memes
 // library to download URL and store it in memes folder? - not sure if it does this
 // fs is an object to help me work with the file system
-import fs from 'fs';
+import fs from 'node:fs';
+// takes the (HTML Markup as a) string and it allows me to shuffle stuff around and extracts things etc. (manipulating in a structured way)
+import cheerio from 'cheerio';
 // going to a webiste, takes the HTML from that site, brings it back to me -> a string of HTML
 import fetch from 'node-fetch';
 
@@ -31,7 +31,7 @@ async function fetchURL() {
   // variable that takes everything containing 'img' from the § variable
   const images = $('img');
 
-  // create a loop that prints no 0-9; condition plus, where to stop, something changes in every loop to move forward
+  // create a loop that prints no 0-9, condition plus, where to stop, something changes in every loop to move forward
   // let..... 0 - declaring the variable
   // stop condition <10
   for (let picDownloads = 0; picDownloads < 10; picDownloads++) {
