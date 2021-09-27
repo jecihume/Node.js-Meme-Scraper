@@ -14,6 +14,25 @@ async function download(memesURL, memesName) {
     console.log('Picture has loaded! Yaaayyy!!!'),
   );
 }
+// ELSE IF statement to tell the code to not give me an error message
+// './memes' is a map, so that node knows where to put stuff
+// . will access a property of the object it belongs to (before the dot)
+const memes = './memes';
+
+// alternative 1
+if (fs.existsSync(memes)) {
+  console.log('Directory exists!');
+} else {
+  console.log('Directory not found.');
+  fs.mkdir(memes, (err) => {
+    // a condition always needs to be in parenthesis! like always! Here: does the error exist at all? err is the condition of if
+    if (err) {
+      throw err;
+    }
+
+    console.log('Directory is created. Yay!');
+  });
+}
 
 // await cannot operate outside of a function -> that's why I made a function
 async function fetchURL() {
@@ -39,33 +58,13 @@ async function fetchURL() {
     // picDownloads underneath is the index of the array called images
     const imageURL = images[picDownloads].attribs.src;
 
-    // when calling the download function, replace the second parameter (picDownloads) with the new constant imageNames!
+    // when calling the download function, replace the second parameter (picDownloads) with the new constant imageName!
     console.log(imageURL);
-    const imageNames = picDownloads + 1;
-    download(imageURL, imageNames);
+    const imageName = picDownloads + 1;
+    download(imageURL, imageName);
   }
 }
 fetchURL();
-
-// Future task: create and ELSE IF statement to tell the code to not give me an error message
-// './memes' is a map, so that node knows where to put stuff
-// . will access a property of the object it belongs to (before the dot)
-const memes = './memes';
-
-// alternative 1
-if (fs.existsSync(memes)) {
-  console.log('Directory exists!');
-} else {
-  console.log('Directory not found.');
-  fs.mkdir(memes, (err) => {
-    // a condition always needs to be in parenthesis! like always! Here: does the error exist at all? err is the condition of if
-    if (err) {
-      throw err;
-    }
-
-    console.log('Directory is created. Yay!');
-  });
-}
 
 // alternative 2
 // fs.mkdir(memes, (err) => {
