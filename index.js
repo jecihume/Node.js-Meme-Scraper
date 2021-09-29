@@ -4,7 +4,7 @@
 import fs from 'node:fs';
 // takes the (HTML Markup as a) string and it allows me to shuffle stuff around and extracts things etc. (manipulating in a structured way)
 import cheerio from 'cheerio';
-// going to a webiste, takes the HTML from that site, brings it back to me -> a string of HTML
+// going to a website, takes the HTML from that site, brings it back to me -> a string of HTML
 import fetch from 'node-fetch';
 
 async function download(memesURL, memesName) {
